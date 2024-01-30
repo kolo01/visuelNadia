@@ -1,4 +1,3 @@
-import Document from "next/document";
 import nodemailer from "nodemailer";
 
 export default function handler(req, res) {
