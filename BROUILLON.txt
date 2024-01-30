@@ -1,0 +1,381 @@
+{/* <div className="">
+    {" "}
+    {inputGroups.map((group, groupId) => {
+        {
+        tab1 = tab1 + parseFloat(group[2].value);
+        }
+    })}bg-cyan-800 text-white rounded-md py-2 px-8 flex flex-col gap-2 p-4 flex justify-end text-red-600 text-2xl
+    <div className="flex flex-col gap-2 p-4 ">
+        <h2 className="flex justify-end text-red-600 text-2xl ">{parseFloat(tab1) * 13 + (parseFloat(tab1) * 13 * 5) / 100}€</h2>
+        <button className="bg-cyan-800 text-white rounded-md py-2 px-8 " onClick={() => { makeDevis("CICV", tab1, 13,0,"undefined")}}>Choisir</button>
+    </div>
+</div> */}
+
+
+
+{/* <h1 className="mt-8 text-center text-3xl font-bold">Selection de service</h1>
+<div className="mt-8 flex justify-between items-center gap-4 bg-white text-slate-800 p-8">
+    <div className="flex justify-between items-center gap-4">
+        <div>
+            <h2 className="font-bold uppercase">Africolis</h2>
+        </div>
+        <div className="flex flex-col justify-center items-stard">
+            <h2 className="font-bold" fontWeight={700}>Date de retrait estimée</h2>
+            <div>
+                <span className="text-slate-800">{dateDep}</span>
+            </div>
+        </div>
+        <div className="flex flex-col justify-center items-stard">
+            <h2 className="font-bold" fontWeight={700}>Date de départ estimée</h2>
+            <div>
+                <Menu className="bg-red-500">
+                    <MenuButton>
+                        <Flex>
+                            <h2 className="text-slate-800"> Voir Toutes les dates</h2>
+                            <ChevronDownIcon className="text-slate-800" fontSize={30} />
+                        </Flex>
+                    </MenuButton>
+                    <MenuList className="bg-yellow-400">
+                        {departAfricolis.map((data,index)=>
+                        (
+                        <MenuItem className="bg-yellow-400" key={index}>{data}</MenuItem>
+                        ))}
+                    </MenuList>
+                </Menu>
+            </div>
+        </div>
+        <div className="flex flex-col justify-center items-stard">
+            <h2 className="font-bold">Durée estimée</h2>
+            <span className="text-slate-800"> 30 jours </span>
+        </div>
+        <div className="flex flex-col justify-center items-stard">
+            <h2 className="font-bold">Date de reception estimé</h2>
+            <span className="text-slate-800">{dateExp3} </span>
+        </div>
+    </div>
+    <div>
+        {prix.map((prix, prixId) => {
+            tab1 =
+            tab1 +
+            (parseFloat(prix.prix) +
+                parseFloat(need[prixId].besoin) +
+                parseFloat(prix.envoi));
+        })}
+        <h2 className="font-bold text-red-800 text-2xl">{parseFloat(tab1) + (parseFloat(tab1) * 5) / 100}€</h2>
+        <button className="bg-cyan-900 text-white px-6 py-2 rounded-md" onClick={() => { makeDevis("Africolis", tab1); }}>
+            Choisir
+        </button>
+    </div>
+</div>
+
+
+<div className="flex justify-between items-center gap-4 bg-white text-slate-800 p-8">
+    <div className="flex justify-between items-center gap-4">
+        <div>
+            <h2 className="font-bold"> CHALLENGE{" "} </h2>
+        </div>
+        <div >
+            <h2 className="font-bold">Date de retrait estimée</h2>
+            <Flex>
+                <span className="text-slate-800">{dateDep}</span>
+            </Flex>
+        </div>
+        <div >
+            <h2 className="font-bold">Date de départ estimée</h2>
+            <Flex>
+                <span className="text-slate-800">{dateDep}</span>
+            </Flex>
+        </div>
+        <div >
+            <h2 className="font-bold">Durée estimée</h2>
+            <span className="text-slate-800"> 30 jours </span>
+        </div>
+        <div >
+            <h2 className="font-bold">Date de livraison</h2>
+            <span className="text-slate-800">{dateExp3} </span>
+        </div>
+    </div>
+    <div>
+        {" "}
+        <Box>
+            {prix.map((prix, prixId) => {
+                {
+                    tab2 =
+                    tab2 +
+                    (parseFloat(prix.prix) +
+                        parseFloat(need[prixId].besoin) +
+                        parseFloat(prix.envoi));
+                }
+            })}
+            <h2 className="font-bold text-red-800 text-2xl">{parseFloat(tab2) + (parseFloat(tab2)) + (parseFloat(tab2) * 5) / 100}€</h2>
+            <button className="bg-cyan-900 px-6 py-2 text-white rounded-md" onClick={() => {makeDevis("Challenge N°1", tab2); }}>Choisir</button>
+        </Box>
+    </div>
+</div> */}
+
+{/* <ol className="css-1i9dniz relative list-decimal w-full p-0 m-0 flex justify-between">
+    <li className="bg-slate-700 p-2 rounded-sm text-white " aria-label="Sélection de service" role="button" aria-disabled="false" class="css-dvmvvo">
+        <span className="css-1fvdmpf w-[22%] h-20[2px] bg-slate-700"></span>
+        <span class="css-1rc5pa4">Sélection de service</span>
+    </li>
+    <li className="bg-slate-700 p-2 rounded-sm text-white " aria-label="Détails de l’expédition" role="button" aria-disabled="true" class="css-6bjjk5">
+        <span className="css-p0f4v9 w-[22%] h-[202px] bg-slate-700"></span>
+        <span class="css-1265lly">Détails de l’expédition</span>
+    </li>
+    <li className="bg-slate-700 p-2 rounded-sm text-white " aria-label="Détails de l’adresse" role="button" aria-disabled="true" class="css-6bjjk5">
+        <span className="css-p0f4v9 w-[22%] h-[202px] bg-slate-700"></span>
+        <span class="css-1265lly">Détails de l’adresse</span>
+    </li>
+    <li className="bg-slate-700 p-2 rounded-sm text-white " aria-label="Détails de paiement" role="button" aria-disabled="true" class="css-6bjjk5">
+        <span className="css-p0f4v9 w-[22%] h-[202px] bg-slate-700"></span>
+        <span class="css-1265lly">Détails de paiement</span>
+    </li>
+</ol> */}
+
+
+{/* 
+    .css-1i9dniz {
+    position: relative;
+    counter-reset: item 0;
+    display: table;
+    list-style: none;
+    table-layout: fixed;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+    <div className="header-items flex justify-between"> */}
+    {/* <span className="">Selection de service</span> */}
+    {/* <p className="w-[22%] h-[2px] bg-slate-700"></p> */}
+    {/* <span className="">Lorem ipsum daye</span> */}
+    {/* <p className="w-[22%] h-[2px] bg-slate-700"></p> */}
+    {/* <span className="">Lorem ipsum daye</span> */}
+    {/* <p className="w-[22%] h-[2px] bg-slate-700"></p> */}
+    {/* <span className="">Lorem ipsum daye</span> */}
+    {/* <p className="w-[22%] h-[2px] bg-slate-700"></p> */}
+{/* </div>  ox-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;*/}
+
+
+{/* <div key={groupId + 1}>
+    <div>
+        <select
+            onChange={(e) => {
+                handleSelect(
+                        groupId,
+                        e.target.selectedOptions[0].innerHTML
+                    );
+                    categorie[groupId] = {
+                        contenu: e.target.selectedOptions[0].innerHTML,
+                        prix: e.target.selectedOptions[0].value,
+                    };
+                toggleFileInputVisibility(groupId, e.target.value);
+            }}
+        >
+            {Option.map((data) => [
+                <option key={data.prix} value={data.prix}>
+                {data.id}
+                </option>,
+            ])}
+        </select>
+        {fileInputsVisible[groupId] && ( // Afficher le champ input type file si la visibilité est true
+            <input type="file" multiple accept="image/*" onChange={(e) => { console.log(e.target.files)}}/>
+        )}
+    </div>
+
+    {group.map((field) => (
+        <div key={field.id}>
+            <div>
+                <input type="text" placeholder={field.title} value={field.value} onChange={(e) => handleInputChange(groupId, field.id, e.target.value) } />
+            </div>
+        </div>
+    ))}
+
+    <div>
+        {groupId === 0 ? (
+            <GrAddCircle onClick={handleAddGroup} />
+            ) : (
+            <TiDelete
+                onClick={() => handleRemoveGroup(groupId)}
+            />
+        )}
+    </div>
+</div> */}
+
+
+
+{/* <div>
+    <div>
+        <div>
+            <h2>BAMBA BAGAGE</h2>
+            <Image src="airplane.jpg" alt={"image Avion"}/>
+        </div>
+        <div>
+            <span>Date de retrait estimée</span>
+            <span>{dateDep}</span>
+        </div>
+        <div>
+            <span>Date de départ estimée</span>
+            <span>{dateDep}</span>
+        </div>
+        <div>
+            <span>Durée estimée</span>
+            <span>2 jours{" "}</span>
+        </div>
+
+        <div>
+            <span>Date de livraison{" "}</span>
+            <span>{dateExp3}{" "}</span>
+        </div>
+    </div>
+
+    <div>
+        {" "}
+        {inputGroups.map((group, groupId) => {
+            {
+            tab2 = tab2 + parseFloat(group[2].value);
+            }
+        })}
+        <div>
+            <h2>{parseFloat(tab2) * 10 + (parseFloat(tab2) * 10 * 5) / 100}€</h2>
+            <button onClick={() => { makeDevis("BAMBA BAGAGE", tab2, 10,0,"undefined")}}>Choisir</button>
+        </div>
+    </div>
+</div>
+<h2>Sponsorisés par CHAP</h2>
+<div>
+    <div>
+        <div>
+            <h2>CHAP</h2>
+            <Image src="bateau.png" alt={"image Avion"}/>
+        </div>
+        <div>
+            <span>Date de retrait estimée</span>
+            <span>{dateDep}</span>
+        </div>
+        <div>
+            <span>Date de départ estimée</span>
+            <span>{dateDep}</span>
+        </div>
+        <div>
+            <span>Durée estimée</span>
+            <span>3/4 semaines{" "}</span>
+        </div>
+
+        <div>
+            <span>Date de livraison estimée{" "}</span>
+            <span>{dateExp3C}{" "}</span>
+        </div>
+    </div>
+
+    <div>
+        {" "}
+        {inputGroups.map((group, groupId) => {
+            {
+            tab3 = tab3 + parseFloat(group[2].value);
+            }
+        })}
+        <div>
+            <h2>{parseFloat(tab1) * 5 + (parseFloat(tab1) * 5 * 5) / 100}€</h2>
+            <button onClick={() => { makeDevis("CHAP", tab3, 5,0,"undefined")}}>Choisir</button>
+        </div>
+    </div>
+</div> */}
+
+{/* <InputRightElement width="fit-content">
+    <Button h='1.75rem'  onClick={handleClick}>
+    {show ? 'Masquer' : 'voir'}
+    </Button>
+</InputRightElement> */}
+
+
+
+
+
+{/* <Box width={"100%"}>
+                <Flex width={"100%"} mt={5}>
+                    <Box mr={5} width={"100%"}>
+                    <Box>
+                        <Text>Email :</Text>
+                        <Input
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        width={"100%"}
+                        />
+                    </Box>
+                
+                    <Box>
+                        <Text>Adresse : </Text>
+                        <Input
+                        placeholder="rue"
+                        onChange={(e) => setRue(e.target.value)}
+                        width={"100%"}
+                        />
+                    </Box>
+                    
+                    </Box>
+                    <Box width={"100%"}>
+                    
+                    <Box>
+                        <Text>Code postal : </Text>
+                        <Input
+                        placeholder="Code postal du client"
+                        onChange={(e) => setPoste(e.target.value)}
+                        width={"100%"}
+                        />
+                    </Box>
+                    <Box>
+                        <Text>Ville : </Text>
+                        <Input
+                        placeholder="Ville du client"
+                        onChange={(e) => setVille(e.target.value)}
+                        width={"100%"}
+                        />
+                    </Box>
+                    
+                    </Box>
+                </Flex>
+                <Box mb={5}>
+                    <Text mb={2}>De</Text>
+                    <Flex>
+                    <Select
+                        variant="outline"
+                        placeholder="Pays"
+                        onChange={(e) => setDest(e.target.value)}
+                    >
+                        <option value={"France"}>France</option>
+                    </Select>
+                    </Flex>
+                </Box>
+                <Box mb={5}>
+                    <Text mb={2}>A</Text>
+                    <Flex>
+                    <Select
+                        variant="outline"
+                        placeholder="Pays"
+                        onChange={(e) => setArriv(e.target.value)}
+                    >
+                        
+                        <option value={"Côte D'Ivoire"}>{CI}</option>
+                    </Select>
+                    
+                    </Flex>
+                </Box>
+                <Box>
+                    <Text>Reception du colis par la structure : </Text>
+
+                    <Flex justify={"space-around"} my={5}>
+                    <RadioGroup onChange={setRadio2} value={radio2}>
+                        <Stack direction="row">
+                        <Radio value="Dépôt en agence" mr={5}>
+                            Dépôt en agence
+                        </Radio>
+                        <Radio value="Retrait à domicile">Retrait a domicile</Radio>
+                        </Stack>
+                    </RadioGroup>
+                    </Flex>
+
+                    <Text my={5}></Text>
+                </Box> */}
+                            {/* LAAAAAAAAAAAAAA */}
+
+                {/* </Box> */}
