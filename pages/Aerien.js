@@ -190,9 +190,9 @@ function MyComponent() {
         [
         { id: 1, value: "", title: "Description" },
 
-        { id: 2, value: "", title: "Valeur" },
+        { id: 2, value: "", title: "Valeur(euros)" },
 
-        { id: 3, value: "", title: "Poids" },
+        { id: 3, value: "", title: "Poids(kg)" },
         ],
     ]);
 
@@ -488,7 +488,7 @@ function MyComponent() {
                             </div>
                             <div className="flex flex-col">
                                 <label className="font-bold">Adresse : </label>
-                                <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setRue(e.target.value); }} placeholder={"Rue/Avenue"} mr={2}/>
+                                <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setRue(e.target.value); }} placeholder={"n°Rue/Avenue"} mr={2}/>
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
@@ -506,15 +506,15 @@ function MyComponent() {
                         <div className="mt-4">
                             <span className="font-bold">De</span>
                             <div>
-                                <select className="min-w-[22rem] p-2 bg-white border border-cyan-800 placeholder-gray-800 text-cyan-800 text-md " placeholder="Pays" onChange={(e) => setDest(e.target.value)}>
-                                    <option value={"france"}>France</option>
+                                <select className="min-w-[22rem] p-2 bg-white border border-cyan-800 placeholder-gray-800 text-gray-800 text-md " placeholder="Pays" onChange={(e) => setDest(e.target.value)}>
+                                    <option value={"France"}>France</option>
                                 </select>
                             </div>
                         </div>
                         <div className="mt-4">
                             <span className="font-bold">À</span>
                             <div>
-                                <select className="min-w-[22rem] p-2 bg-white border border-cyan-800 placeholder-gray-800 text-cyan-800 text-md "  placeholder="Pays" onChange={(e) => setArriv(e.target.value)}>
+                                <select className="min-w-[22rem] p-2 bg-white border border-cyan-800 placeholder-gray-800 text-gray-800 text-md "  placeholder="Pays" onChange={(e) => setArriv(e.target.value)}>
                                     <option value={"Côte D'Ivoire"}>{CI}</option>
                                 </select>
                             </div>

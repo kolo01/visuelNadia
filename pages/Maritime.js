@@ -175,7 +175,7 @@ function MyComponent2() {
         [
             { id: 1, value: "", title: "Description" },
 
-            { id: 2, value: "", title: "Valeur en €" },
+            { id: 2, value: "", title: "Valeur(euros)" },
         ],
     ]);
 
@@ -316,7 +316,7 @@ function MyComponent2() {
                             </div>
                             <div className="flex flex-col">
                                 <label className="font-bold">Adresse : </label>
-                                <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setRue(e.target.value); }} placeholder={"Rue/Avenue"} mr={2}/>
+                                <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setRue(e.target.value); }} placeholder={"n°Rue/Avenue"} mr={2}/>
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
