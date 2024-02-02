@@ -64,7 +64,7 @@ export default function Devis() {
             <Navbar/>
 
             <div className="min-w-full flex flex-col shadow-2xl shadow-black">
-                <h1 className="text-3xl text-center mt-8 font-bold">Envoyer votre colis maintenant</h1>
+                <h1 className="text-3xl text-center mt-8 font-bold max-[680px]:text-2xl">Envoyer votre colis maintenant</h1>
 
                 <div className="container mx-auto flex gap-4 max-[1390px]:flex-col max-[1390px]:items-center max-[1390px]:justify-center">
                     <div className="left min-w-[60%] max-[1390px]:w-full "> {/**/}
@@ -75,8 +75,8 @@ export default function Devis() {
                                 </div> */}
                             </div>
                             <div className="flex flex-col justify-center items-center mt-4 p-4">
-                                <div className="flex justify-center items-center gap-4">
-                                    <h2 className="text-xl font-semibold">Moyen de transport : </h2>
+                                <div className="flex justify-center items-center gap-4 max-[680px]:flex-col">
+                                    <h2 className="text-xl font-semibold">Moyen de transport :</h2>
                                     <RadioGroup onChange={setRadio1} value={radio1}>
                                         <Radio className="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="Aerien" mr={10}>Aérien</Radio>
                                         <Radio className="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="Maritime">Maritime</Radio>

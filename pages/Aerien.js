@@ -17,7 +17,8 @@ import { ref as _rf , uploadBytes, getDownloadURL } from 'firebase/storage';
 import Head from "next/head";
 import sha256 from 'crypto-js/sha256';
 import CryptoJS from "crypto-js";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWareHouse, faHome, faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 
 function MyComponent() {
 
@@ -185,6 +186,8 @@ function MyComponent() {
     const [image, setImage] = useState([{ file: " ", nom: "" }]);
     const [imageUri, setImageUri] = useState([{ link: [ ] ,collection: ""}]);
     const toast = useToast();
+
+    const [maxWidth, setMaxWidth] = useState(768)
 
     const [inputGroups, setInputGroups] = useState([
         [
@@ -464,6 +467,8 @@ function MyComponent() {
         }
     }
 
+    
+
     return (
         <ChakraProvider>
             <Head>
@@ -481,7 +486,7 @@ function MyComponent() {
             <main >
                 <div>
                     <div className="flex gap-4 mt-4 max-[1390px]:flex-col max-[1390px]:min-w-[22rem] max-[1390px]:items-center max-[680px]:flex-col max-[680px]:items-center">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 max-[680px]:gap-4">
                             <div className="flex flex-col">
                                 <label className="font-bold">Email :</label>
                                 <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" placeholder="Email" onChange={(e) => setEmail(e.target.value)} width={"100%"}/>
@@ -491,7 +496,7 @@ function MyComponent() {
                                 <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setRue(e.target.value); }} placeholder={"n°Rue/Avenue"} mr={2}/>
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 max-[680px]:gap-4">
                             <div className="flex flex-col">
                                 <label className="font-bold">Code postal :</label>
                                 <input className="min-w-[22rem] max-[680px]:w-[10rem] max-[1390px]:w-[10rem]  p-1 rounded-sm border border-cyan-800 placeholder-gray-800" onChange={(e) => { setPoste(e.target.value); }} placeholder={"Code postal"} mr={2}/>
@@ -511,7 +516,7 @@ function MyComponent() {
                                 </select>
                             </div>
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4  max-[680px]:mt-0">
                             <span className="font-bold">À</span>
                             <div>
                                 <select className="min-w-[22rem] p-2 bg-white border border-cyan-800 placeholder-gray-800 text-gray-800 text-md "  placeholder="Pays" onChange={(e) => setArriv(e.target.value)}>
@@ -521,7 +526,7 @@ function MyComponent() {
                         </div>
                     </div>
                     <div className="mt-8 flex flex-col justify-center items-center gap-4">
-                        <h2 className="font-bold text-2xl">Reception du colis par la structure : </h2>
+                        <h2 className="font-bold text-2xl max-[680px]:text-xl">Reception du colis par la structure : </h2>
                         <div className="flex justify-center items-center">
                             <RadioGroup className="flex gap-4" onChange={setRadio2} value={radio2}>
                                 <Radio className="w-4 h-4 text-teal-600 bg-gray-100 border border-cyan-800 placeholder-gray-800 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="En agence">Depot en agence</Radio>
@@ -565,8 +570,8 @@ function MyComponent() {
                                 {group.map((field) => (
                                     <div key={field.id}>
                                         {field.id == 1 ? (
-                                            <input className="p-1 border border-cyan-800 placeholder-gray-800" 
-                                                as={"textarea"}
+                                            <textarea className="p-1 border border-cyan-800 placeholder-gray-800" 
+                                            
                                                 placeholder={field.title}
                                                 value={field.value}
                                                 onChange={(e) =>
@@ -606,176 +611,269 @@ function MyComponent() {
             {/* information sur les differents fournisseurs et leur jour de livraison */}
             <Drawer onClose={onClose} isOpen={isOpen} size={"full"}>
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent className="">
                     <DrawerCloseButton />
-                    <nav className="css-1a4ibax m-10">
-                        <section class="step-wizard">
-                            <ul class="step-wizard-list">
-                                <li class="step-wizard-item">
-                                    <span class="progress-count">1</span>
-                                    <span class="progress-label">Sélection de service</span>
-                                </li>
-                                <li class="step-wizard-item current-item">
-                                    <span class="progress-count">2</span>
-                                    <span class="progress-label">Détails de l’expédition</span>
-                                </li>
-                                <li class="step-wizard-item">
-                                    <span class="progress-count">3</span>
-                                    <span class="progress-label">Détails de l’adresse</span>
-                                </li>
-                                <li class="step-wizard-item">
-                                    <span class="progress-count">4</span>
-                                    <span class="progress-label">Détails de paiement</span>
-                                </li>
-                            </ul>
-                        </section>
-                        
-                    </nav>
-                    {/* 1277, 768 */}
-                    <DrawerBody>
-                        <div className="container mx-auto flex flex-col gap-4">
-                            <div className="min-w-full flex justify-between rounded-md shadow-[0_15px_60px_-15px_rgba(0,0,0,0.3)]">
-                                <div className="w-full flex justify-evenly max-[768px]: max-[768px]:flex-col max-[768px]:p-2">
-                                    <div className="flex justify-between items-center">
-                                        <div className="flex flex-col py-4 px-12 gap-4 bg-orange-600 rounded-tl-lg max-[768px]:p2 max-[768px]:flex-row max-[768px]: max-[768px]:rounded-br-xl">
-                                            <div className="flex flex-col justify-center items-start text-white max-[768px]:flex-row">
-                                                <strong className="text-[3rem] max-[768px]:text-xl max-[768px]:-mt-1">2</strong>
-                                                <small className="font-bold max-[768px]:ml-2">Jours</small>
-                                            </div>
-                                            <span className="text-white font-bold text-[0.8rem] -mt-4 max-[768px]:-mt-0">Estimés</span>
+                    <section className="w-full py-4">
+                        <div className="container mx-auto">
+                            <header className="p-4">
+                                <ul className="flex justify-center items-center z-10 relative p-2">
+                                    <li className="flex flex-col flex-grow after:content-[''] after:absolute after:bg-cyan-800 after: after:min-w-[98%]
+                                        after:h-[2px] after:left-10 after:top-7 -z-10 max-[780px]:after:min-w-[80%]">
+                                        <span className="bg-cyan-800 text-white rounded-full w-10 h-10 p-2 flex justify-center items-center relative">1</span>
+                                        <span className="text-cyan-800">Sélection de service</span>
+                                    </li>
+                                    <li className="flex flex-col flex-grow max-[780px]:-mt-4">
+                                        <span className="bg-cyan-800 text-white rounded-full w-10 h-10 p-2 flex justify-center items-center relative">2</span>
+                                        <span className="text-cyan-800 max-[768px]:hidden">Détails de l’expédition</span>
+                                    </li>
+                                    <li className="flex flex-col flex-grow max-[780px]:-mt-4">
+                                        <span className="bg-cyan-800 text-white rounded-full w-10 h-10 p-2 flex justify-center items-center relative">3</span>
+                                        <span className="text-cyan-800 max-[768px]:hidden">Détails de l’adresse</span>
+                                    </li>
+                                    <li className="flex flex-col flex-grow max-[780px]:-mt-4">
+                                        <span className="bg-cyan-800 text-white rounded-full w-10 h-10 p-2 flex justify-center items-center relative">4</span>
+                                        <span className="text-cyan-800 max-[768px]:hidden">Détails de paiement</span>
+                                    </li>
+                                </ul>
+                            </header>
+                            
+                            <main className="py-10 w-full max-[768px]:hidden max-[1024px]:">
+                                <div className="bg-white flex flex-col gap-4 max-[768px]:bg-red-500">
+                                    <div className="flex justify-between shadow-md max-[768px]:">
+                                        <div className="flex flex-col items-center bg-orange-600 py-4 px-10 text-white rounded-tl-lg gap-2">
+                                            <h2 className="text-4xl font-bold">2</h2>
+                                            <small>Jours</small>
+                                            <span>Estimés</span>
                                         </div>
-                                        <div className="flex flex-col justify-center items-center gap-2 mr-10 ml-10 max-[768px]:ml-0 max-[768px]:mr-4 max-[768px]:mt-4">
-                                            <Image className="w-40 max-[768px]:w-20" src="airplane.jpg" alt={"image Avion"}/>
-                                            <h2 className="">CICV</h2>
+                                        <div className="flex flex-col items-start p-4 gap-2 m">
+                                            <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                            <h2>NKS</h2>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Déposez votre colis dès aujourd’hui</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Le destinataire peut récupérer le colis</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <h2 className="self-end text-3xl font-bold text-cyan-800 max-[1024px]:text-2xl">6,25 €</h2>
+                                            <button className="bg-orange-600 px-4 py-2 mt-4 rounded-md text-white max-[1024px]:" >Choisir</button>
                                         </div>
                                     </div>
-                                    <div className="w-full flex justify-between items-center">
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de retrait estimée</span>
-                                            <span>{dateDep}</span>
-                                        </div>
 
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de départ estimée</span>
-                                            <span>{dateDep}</span>
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col items-center bg-orange-600 py-4 px-10 text-white rounded-tl-lg gap-2">
+                                            <h2 className="text-4xl font-bold">2</h2>
+                                            <small>Jours</small>
+                                            <span>Estimés</span>
                                         </div>
-
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de livraison estimée{" "}</span>
-                                            <span>{dateExp3}{" "}</span>
+                                        <div className="flex flex-col items-start p-4 gap-2 m">
+                                            <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                            <h2>NKS</h2>
                                         </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Déposez votre colis dès aujourd’hui</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Le destinataire peut récupérer le colis</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <h2 className="self-end text-3xl font-bold text-cyan-800 max-[1024px]:text-2xl">6,25 €</h2>
+                                            <button className="bg-orange-600 px-4 py-2 mt-4 rounded-md text-white max-[1024px]:" >Choisir</button>
+                                        </div>
+                                    </div>
 
-                                        <div className="">
-                                            {" "}
-                                            {inputGroups.map((group, groupId) => {
-                                                {
-                                                tab1 = tab1 + parseFloat(group[2].value);
-                                                }
-                                            })}
-                                            <div className="flex flex-col gap-2 p-4 ">{/*bg-cyan-800 text-white rounded-md py-2 px-8 flex flex-col gap-2 p-4 flex justify-end text-red-600 text-2xl */}
-                                                <h2 className="flex justify-end text-red-600 text-2xl max-[768px]:text-xl max-[768px]:text-center">{parseFloat(tab1) * 13 + (parseFloat(tab1) * 13 * 5) / 100}€</h2>
-                                                <button className="bg-cyan-800 text-white rounded-md py-2 px-8 max-[768px]:p-2" onClick={() => { makeDevis("CICV", tab1, 13,0,"undefined")}}>Choisir</button>
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col items-center bg-orange-600 py-4 px-10 text-white rounded-tl-lg gap-2">
+                                            <h2 className="text-4xl font-bold">2</h2>
+                                            <small>Jours</small>
+                                            <span>Estimés</span>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2 m">
+                                            <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                            <h2>NKS</h2>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Déposez votre colis dès aujourd’hui</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Le destinataire peut récupérer le colis</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <h2 className="self-end text-3xl font-bold text-cyan-800 max-[1024px]:text-2xl">6,25 €</h2>
+                                            <button className="bg-orange-600 px-4 py-2 mt-4 rounded-md text-white max-[1024px]:" >Choisir</button>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col items-center bg-orange-600 py-4 px-10 text-white rounded-tl-lg gap-2">
+                                            <h2 className="text-4xl font-bold">2</h2>
+                                            <small>Jours</small>
+                                            <span>Estimés</span>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2 m">
+                                            <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                            <h2>NKS</h2>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Déposez votre colis dès aujourd’hui</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                            <span>Lorem, ipsum dolor.</span>
+                                            <small>Le destinataire peut récupérer le colis</small>
+                                        </div>
+                                        <div className="flex flex-col items-start p-4 gap-2">
+                                            <h2 className="self-end text-3xl font-bold text-cyan-800 max-[1024px]:text-2xl">6,25 €</h2>
+                                            <button className="bg-orange-600 px-4 py-2 mt-4 rounded-md text-white max-[1024px]:" >Choisir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+
+                            <main className="py-10 w-full max-[768px]:w-full min-[769px]:hidden min-[1669px]:hidden min-[1024px]:hidden">
+                                <div className="bg-white flex flex-col gap-4 max-[768px]:">
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col">
+                                            <div className="flex items-center bg-orange-600 p2 text-white rounded-r-3xl gap-2">
+                                                <h2 className="text-4xl font-bold">2</h2>
+                                                <small>Jours</small>
+                                                <span>Estimés</span>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Déposez votre colis dès aujourd’hui</small>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Le destinataire peut récupérer le colis</small>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <div className="flex flex-col items-end p-4 gap-2">
+                                                <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                                <h2>NKS</h2>
+                                            </div>
+                                            
+                                            <div className="flex flex-col items-end p-4 gap-2 mt-10">
+                                                <h2 className="self-end font-bold text-cyan-800 text-2xl -mb-1">6,25 €</h2>
+                                                <button className="bg-orange-600 px-4 py-2 rounded-md text-white" >Choisir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col">
+                                            <div className="flex items-center bg-orange-600 p2 text-white rounded-r-3xl gap-2">
+                                                <h2 className="text-4xl font-bold">2</h2>
+                                                <small>Jours</small>
+                                                <span>Estimés</span>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Déposez votre colis dès aujourd’hui</small>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Le destinataire peut récupérer le colis</small>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <div className="flex flex-col items-end p-4 gap-2">
+                                                <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                                <h2>NKS</h2>
+                                            </div>
+                                            
+                                            <div className="flex flex-col items-end p-4 gap-2 mt-10">
+                                                <h2 className="self-end font-bold text-cyan-800 text-2xl -mb-1">6,25 €</h2>
+                                                <button className="bg-orange-600 px-4 py-2 rounded-md text-white" >Choisir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col">
+                                            <div className="flex items-center bg-orange-600 p2 text-white rounded-r-3xl gap-2">
+                                                <h2 className="text-4xl font-bold">2</h2>
+                                                <small>Jours</small>
+                                                <span>Estimés</span>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Déposez votre colis dès aujourd’hui</small>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Le destinataire peut récupérer le colis</small>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <div className="flex flex-col items-end p-4 gap-2">
+                                                <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                                <h2>NKS</h2>
+                                            </div>
+                                            
+                                            <div className="flex flex-col items-end p-4 gap-2 mt-10">
+                                                <h2 className="self-end font-bold text-cyan-800 text-2xl -mb-1">6,25 €</h2>
+                                                <button className="bg-orange-600 px-4 py-2 rounded-md text-white" >Choisir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-between shadow-md">
+                                        <div className="flex flex-col">
+                                            <div className="flex items-center bg-orange-600 p2 text-white rounded-r-3xl gap-2">
+                                                <h2 className="text-4xl font-bold">2</h2>
+                                                <small>Jours</small>
+                                                <span>Estimés</span>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Dépôt</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Déposez votre colis dès aujourd’hui</small>
+                                            </div>
+                                            <div className="flex flex-col items-start p-4 gap-2">
+                                                <span className="font-bold"><FontAwesomeIcon icon={faHome} className='size-4 mr-2 text-cyan-800'/>Retrait</span>
+                                                <span>Lorem, ipsum dolor.</span>
+                                                <small>Le destinataire peut récupérer le colis</small>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <div className="flex flex-col items-end p-4 gap-2">
+                                                <span><FontAwesomeIcon icon={faPlaneDeparture} className='size-10 text-cyan-800'/></span>
+                                                <h2>NKS</h2>
+                                            </div>
+                                            
+                                            <div className="flex flex-col items-end p-4 gap-2 mt-10">
+                                                <h2 className="self-end font-bold text-cyan-800 text-2xl -mb-1">6,25 €</h2>
+                                                <button className="bg-orange-600 px-4 py-2 rounded-md text-white" >Choisir</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="min-w-full flex justify-between rounded-md shadow-[0_15px_60px_-15px_rgba(0,0,0,0.3)]">
-                                <div className="w-full flex justify-evenly max-[768px]: max-[768px]:flex-col max-[768px]:p-2">
-                                    <div className="flex justify-between items-center">
-                                        <div className="flex flex-col py-4 px-12 gap-4 bg-orange-600 rounded-tl-lg max-[768px]:p2 max-[768px]:flex-row max-[768px]: max-[768px]:rounded-br-xl">
-                                            <div className="flex flex-col justify-center items-start text-white max-[768px]:flex-row">
-                                                <strong className="text-[3rem] max-[768px]:text-xl max-[768px]:-mt-1">2</strong>
-                                                <small className="font-bold max-[768px]:ml-2">Jours</small>
-                                            </div>
-                                            <span className="text-white font-bold text-[0.8rem] -mt-4 max-[768px]:-mt-0">Estimés</span>
-                                        </div>
-                                        <div className="flex flex-col justify-center items-center gap-2 mr-10 ml-10 max-[768px]:ml-0  max-[768px]:mr-4 max-[768px]:mt-4">
-                                            <Image className="w-40 max-[768px]:w-20" src="airplane.jpg" alt={"image Avion"}/>
-                                            <h2 className="">BAMBA BAGAGE</h2>
-                                        </div>
-                                    </div>
-                                    <div className="w-full flex justify-between items-center">
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de retrait estimée</span>
-                                            <span>{dateDep}</span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de départ estimée</span>
-                                            <span>{dateDep}</span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de livraison estimée{" "}</span>
-                                            <span>{dateExp3}{" "}</span>
-                                        </div>
-
-                                        <div className="">
-                                            {" "}
-                                            {inputGroups.map((group, groupId) => {
-                                                {
-                                                tab1 = tab1 + parseFloat(group[2].value);
-                                                }
-                                            })}
-                                            <div className="flex flex-col gap-2 p-4 ">
-                                                <h2 className="flex justify-end text-red-600 text-2xl max-[768px]:text-xl max-[768px]:text-center">{parseFloat(tab1) * 13 + (parseFloat(tab1) * 13 * 5) / 100}€</h2>
-                                                <button className="bg-cyan-800 text-white rounded-md py-2 px-8 max-[768px]:p-2" onClick={() => { makeDevis("CICV", tab1, 13,0,"undefined")}}>Choisir</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="min-w-full flex justify-between rounded-md shadow-[0_15px_60px_-15px_rgba(0,0,0,0.3)]">
-                                <div className="w-full flex justify-evenly max-[768px]: max-[768px]:flex-col max-[768px]:p-2 ">
-                                    <div className="flex justify-between items-center">
-                                        <div className="flex flex-col py-4 px-12 gap-4 bg-orange-600 rounded-tl-lg max-[768px]:p2 max-[768px]:flex-row max-[768px]: max-[768px]:rounded-br-xl">
-                                            <div className="flex flex-col justify-center items-start text-white max-[768px]:flex-row">
-                                                <strong className="text-[3rem] max-[768px]:text-xl max-[768px]:-mt-1">3</strong>
-                                                <small className="font-bold max-[768px]:ml-2">Semaines</small>
-                                            </div>
-                                            <span className="text-white font-bold text-[0.8rem] -mt-4 max-[768px]:-mt-0">Estimés</span>
-                                        </div>
-                                        <div className="flex flex-col justify-center items-center gap-2 mr-10 ml-10 max-[768px]:ml-0 max-[768px]:mr-4 max-[768px]:mt-4">
-                                            <Image className="w-40 max-[768px]:w-20" src="airplane.jpg" alt={"image Avion"}/>
-                                            <h2 className="">CHAP</h2>
-                                        </div>
-                                    </div>
-                                    <div className="w-full flex justify-between items-center">
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de retrait estimée</span>
-                                            <span>{dateDep}</span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de départ estimée</span>
-                                            <span>{dateDep}</span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-bold">Date de livraison estimée{" "}</span>
-                                            <span>{dateExp3}{" "}</span>
-                                        </div>
-
-                                        <div className="">
-                                            {" "}
-                                            {inputGroups.map((group, groupId) => {
-                                                {
-                                                tab1 = tab1 + parseFloat(group[2].value);
-                                                }
-                                            })}
-                                            <div className="flex flex-col gap-2 p-4 ">
-                                                <h2 className="flex justify-end text-red-600 text-2xl max-[768px]:text-xl max-[768px]:text-center">{parseFloat(tab1) * 13 + (parseFloat(tab1) * 13 * 5) / 100}€</h2>
-                                                <button className="bg-cyan-800 text-white rounded-md py-2 px-8 max-[768px]:p-2" onClick={() => { makeDevis("CICV", tab1, 13,0,"undefined")}}>Choisir</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </main>
                         </div>
-                    </DrawerBody>
+                    </section>
                 </DrawerContent>
             </Drawer>
             <Modal isCentered isOpen={isOpenModal1} onClose={toggleModal1} size={"xl"}>

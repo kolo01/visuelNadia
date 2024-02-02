@@ -389,8 +389,29 @@ function MyComponent2() {
 
                             {group.map((field) => (
                                 <div key={field.id}>
-                                    <div className="">
+                                    {/* <div className="">
                                         <input type="text" className="bg-white border border-cyan-800 p-1 placeholder-gray-800" value={field.value} placeholder={field.title} onChange={(e) => handleInputChange(groupId, field.id, e.target.value) }/>
+                                    </div> */}
+                                    <div className="">
+                                    {field.id == 1 ? (
+                                            <textarea className="p-1 border border-cyan-800 placeholder-gray-800" 
+                                            
+                                                placeholder={field.title}
+                                                value={field.value}
+                                                onChange={(e) =>
+                                                handleInputChange(groupId, field.id, e.target.value)
+                                                }
+                                            />
+                                        ) : (
+                                            <input className="p-1 border border-cyan-800 placeholder-gray-800 " 
+                                                type="text"
+                                                placeholder={field.title}
+                                                value={field.value}
+                                                onChange={(e) =>
+                                                handleInputChange(groupId, field.id, e.target.value)
+                                                }
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             ))}

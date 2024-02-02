@@ -143,4 +143,10 @@
     .step-wizard-item {
         /* width: 20%; */
     }
+
+    .step-wizard-item .progress-label {
+        width: 100%;
+        margin-top: 0;
+        
+    }   /*   max-[780px]:w-[100%] max-[780px]:flex max-[780px]:justify-center bg-red-600 */
 }
