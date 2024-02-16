@@ -15,29 +15,30 @@ export default function Carousel({ slides }) {
     };
 
     return (
-        <div className="overflow-hidden relative">
-            <div className={`flex transition ease-out duration-40`} style={{ transform: `translateX(-${current * 100}%)`,}}>
-                {slides && slides !="" ? slides.map((slide) => {
-                    return <img src={slide} />;
-                }):<p>Cool</p>}
-            </div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, magni at voluptatibus rerum vel quisquam eaque vero? Facilis vel, impedit magnam laudantium quia consectetur, alias, ab quos a doloremque illum.</p>
+        // <div className="overflow-hidden relative">
+        //     <div className={`flex transition ease-out duration-40`} style={{ transform: `translateX(-${current * 100}%)`,}}>
+        //         {slides && slides !="" ? slides.map((slide) => {
+        //             return <img src={slide} />;
+        //         }):<p>Cool</p>}
+        //     </div>
 
-            <div className="absolute top-0 h-full w-full justify-between items-center flex text-white px-10 text-3xl">
-                <button onClick={previousSlide}>
-                    <BsFillArrowLeftCircleFill />
-                </button>
-                <button onClick={nextSlide}>
-                    <BsFillArrowRightCircleFill />
-                </button>
-            </div>
+        //     <div className="absolute top-0 h-full w-full justify-between items-center flex text-white px-10 text-3xl">
+        //         <button onClick={previousSlide}>
+        //             <BsFillArrowLeftCircleFill />
+        //         </button>
+        //         <button onClick={nextSlide}>
+        //             <BsFillArrowRightCircleFill />
+        //         </button>
+        //     </div>
 
-            <div className="absolute bottom-0 py-4 flex justify-center gap-3 w-full">
-                {slides.map((s, i) => {
-                    return ( /**w-5 h-5  */
-                        <div onClick={() => { setCurrent(i)}} key={"circle" + i} className={`rounded-full cursor-pointer  ${ i === current ? "bg-white" : "bg-gray-500" }`}></div>
-                    );
-                })}
-            </div>
-        </div>
+        //     <div className="absolute bottom-0 py-4 flex justify-center gap-3 w-full">
+        //         {slides.map((s, i) => {
+        //             return (
+        //                 <div onClick={() => { setCurrent(i)}} key={"circle" + i} className={`rounded-full cursor-pointer  ${ i === current ? "bg-white" : "bg-gray-500" }`}></div>
+        //             );
+        //         })}
+        //     </div>
+        // </div>
     );
 }
