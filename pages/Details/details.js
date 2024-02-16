@@ -18,7 +18,7 @@ import { storeCartInFirestore } from '/components/firestore/firestore';
 import { addDoc, collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { FacebookIcon, FacebookShareButton, WhatsappIcon, WhatsappShareButton } from 'next-share';
-import Head from "next/head";
+import Head from "next/head"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoneyBillTransfer, faTruck, faStar, faMap, faLocation, faLocationDot, faBoxesStacked, faBoxOpen } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
