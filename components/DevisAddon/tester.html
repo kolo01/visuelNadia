@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+window.onload = function() {
+    const categorie = ["hello", "world", "goodbye", "baby", "love", "goodbye"];
+    
+  
+   
+    for (let i = 0; i < categorie.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = categorie[i];
+        document.querySelectorAll("ul")[0].append(li);
+      
+        
+    };
+    
+}
+    
+</script>
+
+<body>
+    <ul class="categories" id="Cat">
+        Exemple
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+/* carousel.css */
+
+/* Flèche de gauche */
+.slick-prev {
+    background-color: #c0bbbb7d; /* Changez cette couleur en fonction de vos besoins */
+    color: #7c5e5e56; /* Couleur du texte de la flèche */
+  }
+  
+  /* Flèche de droite */
+  .slick-next {
+    background-color: #c0bbbb7d; /* Changez cette couleur en fonction de vos besoins */
+    color: #7c5e5e56; /* Couleur du texte de la flèche */
+  }
