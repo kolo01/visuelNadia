@@ -17,9 +17,9 @@ export default function Carousel({ slides }) {
     return (
         <div className="overflow-hidden relative">
             <div className={`flex transition ease-out duration-40`} style={{ transform: `translateX(-${current * 100}%)`,}}>
-                {slides.map((slide) => {
+                {slides && slides !="" ? slides.map((slide) => {
                     return <img src={slide} />;
-                })}
+                }):<p>Cool</p>}
             </div>
 
             <div className="absolute top-0 h-full w-full justify-between items-center flex text-white px-10 text-3xl">

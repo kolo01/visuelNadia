@@ -275,7 +275,7 @@ export default function DisplayArticleDetails() {
                             <div className="left w-full lg:w-2/6">
                                 <div className="img w-5/6 lg:">
                                     <div className="img-main border border-cyan-500 w-full">
-                                        <Image className='w-[33rem] h-[33rem]' src={ data.imageUrl[indexed]} alt="" />
+                                        <Image className='w-[60rem] ' src={ data.imageUrl[indexed]} alt="" />
                                     </div>
                                     <div className="img-cards flex items-center mt-10">
                                         <div className="h-20 w-20 border">
@@ -317,7 +317,7 @@ export default function DisplayArticleDetails() {
                                         </div>
                                     </div>
                                     <div className="-mt-4">
-                                        <small className='text-yellow-300 max-[600px]:bg-fuchsia-600'>
+                                        <small className='text-yellow-300 max-[600px]:'>
                                             <FontAwesomeIcon icon={faStar}/>
                                             <FontAwesomeIcon icon={faStar}/>
                                             <FontAwesomeIcon icon={faStar}/>
@@ -331,7 +331,7 @@ export default function DisplayArticleDetails() {
                                     </div>
                                     <div className="">
                                         {data.taille ? <h2 className='font-bold text-xl'>Couleur</h2> : <h2 className='font-bold text-xl'>Produit(s)</h2>}
-                                        <div className="flex justify-between items-center max-[600px]:bg-sky-300">
+                                        <div className="flex justify-between items-center max-[600px]:">
                                             <div className="img flex mt-4">
                                                 <div className='h-20 w-20 '>
                                                     {data.imageUrl.length > 1 ?
@@ -347,7 +347,7 @@ export default function DisplayArticleDetails() {
                                                     } 
                                                 </div>
                                             </div>
-                                            <button onClick={()=>{AddToCart(data,id,color,taille)}} className="bg-cyan-800 p-2 rounded-2xl text-white">Ajouter au panier</button>
+                                            <button onClick={()=>{AddToCart(data,id,color,taille)}} className="bg-cyan-800  max-[600px]:rounded-sm p-2 rounded-2xl text-white">Ajouter au panier</button>
                                         </div>
                                     </div>
 
