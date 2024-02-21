@@ -69,7 +69,7 @@ export default function Devis() {
 
             <div className="w-full bg-white py-10">
                 <div>
-                    <h1 className="text-center text-2xl font-bold">Envoyer votre colis maintenant</h1>
+                    <h1 className="text-center text-2xl lg:text-4xl font-bold">Envoyer votre colis maintenant.</h1>
                     <div className="flex flex-col justify-center items-center mb-10 mt-4 p-4">
                         <div className="flex flex-col justify-center items-center mb-10 gap-4 max-[680px]:flex-col">
                             <h2 className="text-xl font-semibold">Moyen de transport :</h2>

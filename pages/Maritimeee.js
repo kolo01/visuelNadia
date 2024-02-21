@@ -525,21 +525,21 @@ function MyComponent2() {
                                             <div className="flex flex-col gap-2 p-4">
                                                 <h2 className="flex justify-end text-red-600 text-2xl max-[768px]:text-xl max-[768px]:text-center">{parseFloat(tab1) + (parseFloat(tab1) * 5) / 100}€</h2>
                                                 <PopUp PrixChoisi={parseFloat(tab1) + (parseFloat(tab1) * 5) / 100}
-                    Partenaire="Africolis"
-                    email={email}
-                      dest={dest}
-                      poste={poste}
-                      arriv={arriv}
-                      radio2={radio2}
-                      imageUri=""
-                      ville={ville}
-                      need={need}
-                      inputGroups={inputGroups}
-                      categorie={prix}
-                      rue={rue}
-                      moyen="Maritime"
+                                                Partenaire="Africolis"
+                                                email={email}
+                                                dest={dest}
+                                                poste={poste}
+                                                arriv={arriv}
+                                                radio2={radio2}
+                                                imageUri=""
+                                                ville={ville}
+                                                need={need}
+                                                inputGroups={inputGroups}
+                                                categorie={prix}
+                                                rue={rue}
+                                                moyen="Maritime"
 
-                  />
+                                            />
                                             </div>
                                         </div>
                                     </div>

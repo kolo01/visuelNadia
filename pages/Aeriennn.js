@@ -671,19 +671,19 @@ function MyComponent() {
                 ))}
               </div>
 
-              <div className="-mb-4">
-                {groupId === 0 ? (
-                  <GrAddCircle
-                    className="border border-cyan-800 placeholder-gray-800 bg-white h-8 w-10"
-                    onClick={handleAddGroup}
-                  />
-                ) : (
-                  <TiDelete
-                    className="border border-cyan-800 placeholder-gray-800 bg-white h-8 w-10"
-                    onClick={() => handleRemoveGroup(groupId)}
-                  />
-                )}
-              </div>
+                <div className="-mb-4">
+                    {groupId === 0 ? (
+                    <GrAddCircle
+                        className="border border-cyan-800 placeholder-gray-800 bg-white h-8 w-10"
+                        onClick={handleAddGroup}
+                    />
+                    ) : (
+                    <TiDelete
+                        className="border border-cyan-800 placeholder-gray-800 bg-white h-8 w-10"
+                        onClick={() => handleRemoveGroup(groupId)}
+                    />
+                    )}
+                </div>
             </div>
           </>
         ))}

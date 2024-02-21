@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    SimpleGrid,
-    Input,
-    useToast,
-    Button,
-    useDisclosure,
-    Box,Text, Center, Switch
-  } from '@chakra-ui/react'
-  import { authentic, db, db2, storage } from "@/FIREBASE/clientApp";
+import {Modal,ModalOverlay,ModalContent,ModalHeader,ModalFooter,ModalBody,ModalCloseButton,SimpleGrid,Input,useToast,Button,useDisclosure,Box,Text, Center, Switch} from '@chakra-ui/react'
+import { authentic, db, db2, storage } from "@/FIREBASE/clientApp";
 import axios from 'axios';
 import { push, ref, set } from "@firebase/database";
 import { onAuthStateChanged } from 'firebase/auth';
@@ -23,19 +9,7 @@ import CryptoJS from "crypto-js";
 import secureLocalStorage from 'react-secure-storage';
 import { useRouter } from 'next/router';
 
-function PopUp({
-    PrixChoisi,Partenaire,email,
-    dest,
-    need,
-    poste,
-    arriv,
-    radio2,
-    imageUri,
-    ville,
-    inputGroups,
-    categorie,
-    rue,moyen,
-}) {
+function PopUp({ PrixChoisi,Partenaire,email, dest, need, poste, arriv, radio2, imageUri, ville, inputGroups, categorie, rue,moyen }) {
  
     const [numeroExp,setNumeroExp] = useState("")
     const [numeroDest,setNumeroDest] = useState("")
@@ -43,6 +17,7 @@ function PopUp({
     const [prenomDest,setPrenomDest] = useState("")
     const toast = useToast()
     const router = useRouter()
+
     function generateCustomKey() {
         // Obtenez le timestamp actuel en millisecondes
         const timestamp = Date.now();
@@ -64,162 +39,139 @@ function PopUp({
         const formattedTimestamp = `${year}${day}${month}${hour}${minute}${second}`;
     
         return `DE${formattedTimestamp}`;
-      }
-        //fin toggle select
-  
-        const [isOpenModal1, setIsOpenModal1] = useState(false);
-        const toggleModal1 = () => setIsOpenModal1(!isOpenModal1);
-        const [password, setPassword] = useState();
-        const [email2, setEmail2] = useState();
-        const [nom2, setNom2] = useState();
-       const loginUSer = async () => {
-          await signInWithEmailAndPassword(authentic, email2, password)
+    }
+    
+    const [isOpenModal1, setIsOpenModal1] = useState(false);
+    const toggleModal1 = () => setIsOpenModal1(!isOpenModal1);
+    const [password, setPassword] = useState();
+    const [email2, setEmail2] = useState();
+    const [nom2, setNom2] = useState();
+
+    const loginUSer = async () => {
+        await signInWithEmailAndPassword(authentic, email2, password)
             .then((userCredential) => {
-              getTime();
-              if (userCredential.user.emailVerified) {
+            getTime();
+            if (userCredential.user.emailVerified) {
                 setEmail(userCredential.user.email);
                 sessionStorage.setItem("email", userCredential.user.email);
                 // router.back()
                 toast({
-                  title: "ACCES AUTORISE.",
-                  description: "Bon Achat",
-                  status: "success",
-                  duration: 3000,
-                  isClosable: true,
+                title: "ACCES AUTORISE.",
+                description: "Bon Achat",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
                 });
                 router.back();
-              } else {
-      
+            } else {
+    
                 signOut(auth);
-      
+    
                 setVerif(true);
-      
-              }
+    
+            }
             })
-            .catch((error) => {
-              // throw error;
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              // console.log(error.message)
-              // console.log(error.message)
-              if (errorMessage == "Firebase: Error (auth/user-not-found).") {
-                // console.log("VEUILLEZ VERIFIER VOS INFOS DE CONNEXION");
+        .catch((error) => {
+            // throw error;
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // console.log(error.message)
+            // console.log(error.message)
+            if (errorMessage == "Firebase: Error (auth/user-not-found).") {
+            // console.log("VEUILLEZ VERIFIER VOS INFOS DE CONNEXION");
                 toast({
-                  title: "ACCES REFUSE.",
-                  description: "VEUILLEZ VERIFIER VOS ACCES",
-                  status: "error",
-                  duration: 9000,
-                  isClosable: true,
+                    title: "ACCES REFUSE.",
+                    description: "VEUILLEZ VERIFIER VOS ACCES",
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
                 });
-              } else if (
+            } else if (
                 errorMessage == "Firebase: Error (auth/too-many-requests)."
-              ) {
+            ) {
                 toast({
-                  title: "TROP DE TENTATIVES.",
-                  description: "VEUILLEZ REESAYER PLUS TARD",
-                  status: "error",
-                  duration: 9000,
-                  isClosable: true,
+                title: "TROP DE TENTATIVES.",
+                description: "VEUILLEZ REESAYER PLUS TARD",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
                 });
-              } else {
+            } else {
                 if (errorMessage == "Firebase: Error (auth/wrong-password).") {
-                  toast({
+                toast({
                     title: "MOT DE PASSE/IDENTIFIANT INCORRECT",
                     description: "VEUILLEZ VERIFIER VOS ACCES",
                     status: "error",
                     duration: 9000,
                     isClosable: true,
-                  });
+                });
                 } else {
-                  if (errorMessage == "Firebase: Error (auth/invalid-email).") {
-                    toast({
-                      title: "MOT DE PASSE/IDENTIFIANT INCORRECT",
-                      description: "VEUILLEZ VERIFIER VOS ACCES",
-                      status: "error",
-                      duration: 9000,
-                      isClosable: true,
-                    });
-                  } else {
-                    // console.log(error);
-                  }
+                    if (errorMessage == "Firebase: Error (auth/invalid-email).") {
+                        toast({
+                        title: "MOT DE PASSE/IDENTIFIANT INCORRECT",
+                        description: "VEUILLEZ VERIFIER VOS ACCES",
+                        status: "error",
+                        duration: 9000,
+                        isClosable: true,
+                        });
+                    } else {
+                        // console.log(error);
+                    }
                 }
-              }
-            });
-        };
-        const isError = email2 === "";
-        //fin ogin variable
-      
-        //Variable inscription//
-      
-        //////Fin des variables
-      
-        //variable commune insc/conn//
-        const [interup, setInterup] = useState(false);
-        //fin des variables
+            }
+        });
+    };
 
-
-
-
-
+    const isError = email2 === "";
+    //fin ogin variable
+    
+    //Variable inscription//
+    
+    //////Fin des variables
+    
+    //variable commune insc/conn//
+    const [interup, setInterup] = useState(false);
+    //fin des variables
 
     const makeDevis = async () => {
-
         console.log("dans le else")
-        if (
-          poste.length == 5 
-        ) {
-
-            
-          
-
-    
-    
-    
-                const idDev = generateCustomKey();
-      
-      
-                const hashDigest = sha256(idDev).toString(CryptoJS.enc.Hex);
-      
-                const hash = hashDigest.slice(0, 3).toString()
-      
+        if (poste.length == 5 ) {
+            const idDev = generateCustomKey();
+            const hashDigest = sha256(idDev).toString(CryptoJS.enc.Hex);
+            const hash = hashDigest.slice(0, 3).toString()
         
-          if(moyen=="Aerien") {
-            set(ref(db2, `DevisPerso/${idDev}${hash}`), {
-              email: email,
-              numeroExpediteur:numeroExp,
-              numeroDestinataire:numeroDest,
-              nomDestinataire:nomDest,
-              prenomDestinataire:prenomDest,
-              depart: dest,
-              CodePostalDepart: poste,
-              arrive: arriv,
-              moyen: "Aerien",
-              retrait_depot: radio2,
-              imageColis: imageUri,
-              ville: ville,
-              status: "En cours",
-              devisId: `${idDev}${hash}`,
-              rue: rue,
-              partenaire: Partenaire,
-              total: PrixChoisi,
-              produit: inputGroups,
-              categories: categorie,
-              nomExpediteur:nom2
-            }).then(async (response) => {
-              //  console.log(response.key)
-              toast({
-                title: "Devis envoyé",
-                description: "Nous vous contacterons!!",
-                status: "success",
-                duration: 10000,
-                isClosable: true,
-              });
-              
-             
-
-
-
-              await axios.post("/api/sendDevis", {
+            if(moyen=="Aerien") {
+                set(ref(db2, `DevisPerso/${idDev}${hash}`), {
+                email: email,
+                numeroExpediteur:numeroExp,
+                numeroDestinataire:numeroDest,
+                nomDestinataire:nomDest,
+                prenomDestinataire:prenomDest,
+                depart: dest,
+                CodePostalDepart: poste,
+                arrive: arriv,
+                moyen: "Aerien",
+                retrait_depot: radio2,
+                imageColis: imageUri,
+                ville: ville,
+                status: "En cours",
+                devisId: `${idDev}${hash}`,
+                rue: rue,
+                partenaire: Partenaire,
+                total: PrixChoisi,
+                produit: inputGroups,
+                categories: categorie,
+                nomExpediteur:nom2
+                }).then(async (response) => {
+                //  console.log(response.key)
+                toast({
+                    title: "Devis envoyé",
+                    description: "Nous vous contacterons!!",
+                    status: "success",
+                    duration: 10000,
+                    isClosable: true,
+                });
+                await axios.post("/api/sendDevis", {
                 id:`${idDev}${hash}`,
                 email : email.toString(),
                 partenaire : Partenaire, 
@@ -246,70 +198,68 @@ function PopUp({
                   router.reload();
                 });
             });  
-          
-
-          }
-          else if(moyen== "Maritime"){
-            set(ref(db2, `DevisPerso/${idDev}${hash}`), {
-              email: email,
-           
-              depart: dest,
-              CodePostalDepart: poste,
-              arrive: arriv,
-              numeroExpediteur:numeroExp,
-              numeroDestinataire:numeroDest,
-              nomDestinataire:nomDest,
-              prenomDestinataire:prenomDest,
-              moyen: "Maritime",
-              Status: "En Cours",
-              contenant: categorie,
-              retrait_depot: radio2,
-              total: PrixChoisi,
-              partenaire: Partenaire,
-              ville: ville,
-              codePostal: poste,
-             
-              rue: rue,
-              besoin: need,
-              produit: inputGroups,
-            }).then(async (response) => {
-              toast({
-                title: "Devis envoyé",
-                description: "Nous vous contacterons!!",
-                status: "success",
-                duration: 10000,
-                isClosable: true,
-              });
-              onClose();
-              await axios
-                .post("/api/sendDevis", {
-                  id:  `${idDev}${hash}`,
-                  email: email.toString(),
-                  adresse: rue,
-                  nomExp:nom2, 
-                nomDest:nomDest,
-                prenomDest:prenomDest,
-                  moyen: "Maritime",
-                  category:categorie,
-                  subject: `Recapitulatif du devis`,
-                  rue: rue,
-                  ville: ville,
-                  postal: poste,
-                  depot: radio2,
-                  jour:"30 jours estimés",
-                  quantity: inputGroups.length,
-                })
-                .then((response) => {
-                  alert(
-                    "Veuillez verifier vos mails afin de prendre connaissance des details de votre devis"
-                  );
-                  router.push('/SuccesDevis')
-                  router.reload();
-                }).catch((error) => { alert(
-                  "Une erreur est survenu lors de l'enregistrement, veuillez reesayer ou le referer à notre support "
-                );});
-            });
-          }
+        }
+            else if(moyen== "Maritime"){
+                set(ref(db2, `DevisPerso/${idDev}${hash}`), {
+                email: email,
+            
+                depart: dest,
+                CodePostalDepart: poste,
+                arrive: arriv,
+                numeroExpediteur:numeroExp,
+                numeroDestinataire:numeroDest,
+                nomDestinataire:nomDest,
+                prenomDestinataire:prenomDest,
+                moyen: "Maritime",
+                Status: "En Cours",
+                contenant: categorie,
+                retrait_depot: radio2,
+                total: PrixChoisi,
+                partenaire: Partenaire,
+                ville: ville,
+                codePostal: poste,
+                
+                rue: rue,
+                besoin: need,
+                produit: inputGroups,
+                }).then(async (response) => {
+                toast({
+                    title: "Devis envoyé",
+                    description: "Nous vous contacterons!!",
+                    status: "success",
+                    duration: 10000,
+                    isClosable: true,
+                });
+                onClose();
+                await axios
+                    .post("/api/sendDevis", {
+                    id:  `${idDev}${hash}`,
+                    email: email.toString(),
+                    adresse: rue,
+                    nomExp:nom2, 
+                    nomDest:nomDest,
+                    prenomDest:prenomDest,
+                    moyen: "Maritime",
+                    category:categorie,
+                    subject: `Recapitulatif du devis`,
+                    rue: rue,
+                    ville: ville,
+                    postal: poste,
+                    depot: radio2,
+                    jour:"30 jours estimés",
+                    quantity: inputGroups.length,
+                    })
+                    .then((response) => {
+                    alert(
+                        "Veuillez verifier vos mails afin de prendre connaissance des details de votre devis"
+                    );
+                    router.push('/SuccesDevis')
+                    router.reload();
+                    }).catch((error) => { alert(
+                    "Une erreur est survenu lors de l'enregistrement, veuillez reesayer ou le referer à notre support "
+                    );});
+                });
+            }
               
 
         //   onAuthStateChanged(authentic, (user) => {
@@ -390,19 +340,15 @@ function PopUp({
         //     }
         //   });
         } else {
-    
-          toast({
-            title: "Devis impossible",
-            description:
-              "Nos services se limite qu'a une certaine zone",
-            status: "error",
-            duration: 10000,
-            isClosable: true,
-          });
+            toast({
+                title: "Devis impossible",
+                description:
+                "Nos services se limite qu'a une certaine zone",
+                status: "error",
+                duration: 10000,
+                isClosable: true,
+            });
         }
-        // }
-    
-    
       };
 
       useEffect(()=>{
@@ -411,50 +357,56 @@ function PopUp({
       }, [])
       const { isOpen, onOpen, onClose } = useDisclosure()
 
-  return (
-    <>
-      <Button onClick={onOpen}  bgColor={"rgb(234 88 12)"} px={4} py={2} borderRadius={"md"}
-                      color="white"
-                      mt={1}>Choisir</Button>
+    return (
+        <>
+        <button onClick={onOpen}>Reservez maintenant</button>
 
-      <Modal size={"lg"} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Informations supplémentaires</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Center display={"grid"} mb={5}>
-              <Text>Nom du client : </Text>
-              <Input type="text" placeholder='John' onChange={(e)=>setNom2(e.target.value)} value={nom2}/>
-            </Center>
-            <SimpleGrid spacingX={10} spacingY={5} columns={[1,1,1,2,2]}>
-                <Box>
-                    <Text>Numéro expediteur</Text>
-                    <Input type="number"  placeholder="0605799059" value={numeroExp} onChange={(e)=>setNumeroExp(e.target.value)}/>
-                </Box>
-                <Box>
-                    <Text>Numéro du destinataire</Text>
-                    <Input type="number"  placeholder="2250605799059" onChange={(e)=>setNumeroDest(e.target.value)}/>
-                </Box>
-                <Box>
-                    <Text>Nom du destinataire</Text>
-                    <Input type="text" placeholder='John' onChange={(e)=>setNomDest(e.target.value)}/>
-                </Box>
-                <Box>
-                    <Text>prénom du destinataire</Text>
-                    <Input type="text" placeholder="Doe" onChange={(e)=>setPrenomDest(e.target.value)}/>
-                </Box>
-            </SimpleGrid>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button  variant='ghost' mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button colorScheme='blue' isDisabled={numeroExp.length<8 ||numeroDest.length<8 || nomDest.length<2 || prenomDest.length<2} onClick={()=>makeDevis()}>Valider</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+        <Modal size={"lg"} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader className='text-center uppercase text-2xl mb-4'>Informations supplémentaires</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <div className='flex flex-col gap-4'>
+                        <div className="client flex">
+                            <div className='flex flex-col mr-2'>
+                                <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Nom du client</label>
+                                <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="text" placeholder='John' onChange={(e)=>setNom2(e.target.value)} value={nom2}/>
+                            </div>
+                            <div className='flex flex-col ml-2'>
+                                <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Prenom du client</label>
+                                <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="text" placeholder='John' onChange={(e)=>setNom2(e.target.value)} value={nom2}/>
+                            </div>
+                        </div>
+                    
+                        <div className='flex flex-col'>
+                            <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Numéro expediteur</label>
+                            <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="number"  placeholder="0605799059" value={numeroExp} onChange={(e)=>setNumeroExp(e.target.value)}/>
+                        </div>
+                        <div className='flex flex-col'>
+                            <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Numéro du destinataire</label>
+                            <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="number"  placeholder="2250605799059" onChange={(e)=>setNumeroDest(e.target.value)}/>
+                        </div>
+                        <div className="dest flex">
+                            <div className='flex flex-col mr-2'>
+                                <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Nom du destinataire</label>
+                                <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="text" placeholder='John' onChange={(e)=>setNomDest(e.target.value)}/>
+                            </div>
+                            <div className='flex flex-col ml-2'>
+                                <label className='font-bold uppercase text-[0.9rem] tracking-wide'>Prénom du destinataire</label>
+                                <input className='border p-2 shadow-[0_0_12px_rgba(0,0,0,0.2)]' type="text" placeholder="Doe" onChange={(e)=>setPrenomDest(e.target.value)}/>
+                            </div>
+                        </div>
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <div className='w-full flex justify-between'>
+                        <button className='bg-orange-600 font-bold uppercase text-[0.9rem] text-white py-3 px-6 rounded-md' variant='ghost' onClick={onClose}>Fermer</button>
+                        <button className='bg-cyan-800 font-bold uppercase text-[0.9rem] text-white py-3 px-6 rounded-md' isDisabled={numeroExp.length<8 ||numeroDest.length<8 || nomDest.length<2 || prenomDest.length<2} onClick={()=>makeDevis()}>Valider</button>
+                    </div>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
 
 
 

@@ -17,6 +17,8 @@ import CryptoJS from "crypto-js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPhone, faCity, faRoad, faArrowRightToCity, faArrowUp19, faMailBulk } from '@fortawesome/free-solid-svg-icons'
 import { onAuthStateChanged } from "firebase/auth";
+import Link from "next/link";
+
 
 
 
@@ -59,6 +61,11 @@ export default function Carte() {
     const [dis, setDis] = useState();
     const [month2, setMonth2] = useState("");
     const [day2, setDay2] = useState("");
+    const [isOpenToggle, setIsOpenToggle] = useState(false)
+
+    const openWindow = () => {
+        setIsOpenToggle(!isOpenToggle)
+    }
 
     ////ACCESS AU PANIER
     const getCart2 = async (email)=>{
@@ -420,7 +427,7 @@ export default function Carte() {
                     <div className="card-right min-w-[60%] flex flex-col p-4">
                         <h2 className="text-end min-w-[44rem] bg-slate-300 font-bold p-4 max-[1024px]:min-w-[24rem]">{cart.length}  éléments</h2>
                         {cart.map((data) => (
-                            <div className="" key={data.productId}>{/**850px */}
+                            <div className="" key={data.productId}>
                                 <div className="min-w-[44rem] bg-white flex justify-between items-center p-4 mt-4 max-[680px]:flex-col max-[1024px]:flex-col max-[1024px]:min-w-[24rem] max-[1390px]:">
                                     <div className="flex justify-between max-[1024px]:min-w-[24rem] p-2 max-[680px]:flex-col max-[1390px]:flex-col max-[680px]:items-center max-[1390px]:items-center">
                                         <img src={data.orderImageUrl} className="h-28 w-28" alt="" />
@@ -437,7 +444,7 @@ export default function Carte() {
                                         <div className="flex justify-between">
                                             <div className="mr-4">
                                                 <button className="rounded-l-md p-1 border bg-white text-xl font-bold" onClick={() => Decrement(data.productId)}>-</button>
-                                                <input type={"number"} className="w-10 p-2 text-center border" value={data.orderQte}/>
+                                                <span>{data.orderQte}</span>
                                                 <button className="rounded-r-md p-1 border bg-white text-xl font-bold" onClick={() => Increment(data.productId)}>+</button>
                                             </div>
                                                 <button className="bg-red-600 text-white rounded-md p-2" onClick={() => DeleteProduct(data.productId )}> Supprimer</button>
@@ -467,36 +474,36 @@ export default function Carte() {
                                     <strong className="text-red-600 text-2xl"> {parseFloat(prix +parseFloat(frais)).toFixed(2)} €</strong>
                                 </div>
                             </div>
-                            <button className="bg-cyan-800  text-white rounded-md font-bold p-2" onClick={onOpen}> Valider commande </button>
+                            <Link href={"/OrderConfirmationPage"}>
+                                <button className="bg-cyan-800  text-white rounded-md font-bold p-2"> Valider commande </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
-                <div>
+                {isOpenToggle ?
+                <div className="w-96 h-96 bg-green-500">
                     {/* TERMINEYYY */}
                     
-                    <Drawer size={"100%"} onClose={onClose} isOpen={isOpen}>
+                    {/* <Drawer size={"100%"} onClose={onClose} isOpen={isOpen}>
                         <DrawerOverlay />
 
                         <DrawerContent>
                         <div className="bg-slate-200 h-full" >
                             <DrawerCloseButton />
-                            <DrawerBody className="container mx-auto w-7/12 h-full" > {/**ICIII */}
+                            <DrawerBody className="container mx-auto w-7/12 h-full" >
                                 <div className="overflow-hidden min-h-[32rem] rounded-md p-8 flex flex-col justify-center items-center gap-4 md:p-8">
                                     <h1 className="text-3xl text-teal-900 font-bold mb-8">Validation de la commande</h1>
                                     <div className="user-datas bg-white w-full flex justify-between items-center border p-4 max-[680px]:flex-col max-[680px]:items-center max-[1133px]:justify-center max-[1133px]:flex-col max-[680px]:justify-center max-[1133px]:items-center">
                                         <span className="font-bold self-start text-2xl max-[680px]:self-auto max-[1133px]:self-auto">Votre adresse :</span>
-                                        {/* <input type="text" value="nk_shaelah@gmail.com"/> */}
-                                        <ul className="list-none"> {/**-ml-96 max-[680px]:-ml-0 max-[1133px]:-ml-0 */}
+                                        <ul className="list-none">
                                             <li>{secureLocalStorage.getItem("name")} {secureLocalStorage.getItem("surname")}</li>
                                             <li>{secureLocalStorage.getItem("addresse")}</li>
                                             <li>{secureLocalStorage.getItem("number")}</li>
-                                            {/* <li>{secureLocalStorage.getItem("name")}</li>  */}
                                         </ul>
                                         <button className="bg-cyan-800 rounded-md text-white p-2" onClick={() =>setWay("other")}>Changer d{`'`}adresse</button>
                                     </div>
-                                    {/* <div className=""> */}
                                         <div className=" w-full bg-white rounded-md shadow-lg flex flex-col justify-center items-center p-8 gap-4 max-[680px]:">
-                                            <h2 className="text-2xl font-bold mb-10 max-[680px]:text-xl max-[687px]:text-center"> {/**fontWeight={700} fontSize={20} */}
+                                            <h2 className="text-2xl font-bold mb-10 max-[680px]:text-xl max-[687px]:text-center">
                                                 {" "}
                                                 Mode de paiement
                                             </h2>
@@ -521,7 +528,6 @@ export default function Carte() {
                                             </RadioGroup>
                                         </div>
 
-                                    {/* </div> */}
                                     <Box className="w-full bg-white shadow-lg shadow-gray-300 rounded-md flex flex-col justify-center items-center p-4 gap-4 md:flex-col" >
                                         <Text className="text-2xl text-black mb-4 font-bold max-[780px]:text-center max-[780px]:mb-1">
                                             Date de livraison
@@ -541,65 +547,50 @@ export default function Carte() {
                                                 </Radio>
                                             </RadioGroup>
                                         </Box>
-                                        <Box className="rounded-md flex flex-col justify-center items-center gap-4 p-4">{/** ml={{base:0,md:10}} display={sect2} */}
+                                        <Box className="rounded-md flex flex-col justify-center items-center gap-4 p-4">
                                             <Text className="text-2xl text-black mb-4 font-bold">Heure de livraison</Text>
                                             {day == "Samedi" ? (
-                                                <RadioGroup className="bg-green-700 text-white flex justify-center items-center gap-4 p-4"  onChange={setHours} value={hours} onClick={() => { setSect3("flex") }}>{/** display={["grid","grid","grid","flex","flex"]}  */}
-                                                    <Radio value="Soir(13h-16h)">{/** mr={2} */}
+                                                <RadioGroup className="bg-green-700 text-white flex justify-center items-center gap-4 p-4"  onChange={setHours} value={hours} onClick={() => { setSect3("flex") }}>
+                                                    <Radio value="Soir(13h-16h)">
                                                         Apres-Midi (de 13h -- 16h)
                                                         </Radio>
                                                         <br />
-                                                        <Radio value="Soir(16h-20h)">{/** mr={2} */}
+                                                        <Radio value="Soir(16h-20h)">
                                                         Soir (de 16h -- 20h)
                                                         </Radio>
                                                         <br />
-                                                        <Radio value="Soir(20h-00h)">{/** mr={2} */}
+                                                        <Radio value="Soir(20h-00h)">
                                                         Nuit (de 20h -- 00h)
                                                     </Radio>            
                                                 </RadioGroup>
                                             ) : (
-                                                <RadioGroup className="bg-slate-200 text-black flex justify-center items-center gap-4 p-4 max-[780px]:flex-col max-[780px]:justify-center max-[780px]:items-start max-[780px]:gap-1 max-[780px]:rounded-md max-[780px]:bg-white max-[780px]:shadow-lg max-[780px]:shadow-black max-[780px]:text-black" onChange={setHours} value={hours} onClick={() => { setSect3("flex") }}>{/**display={["grid","grid","grid","flex","flex"]}  */}
-                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Matin">{/** mr={2} */}
+                                                <RadioGroup className="bg-slate-200 text-black flex justify-center items-center gap-4 p-4 max-[780px]:flex-col max-[780px]:justify-center max-[780px]:items-start max-[780px]:gap-1 max-[780px]:rounded-md max-[780px]:bg-white max-[780px]:shadow-lg max-[780px]:shadow-black max-[780px]:text-black" onChange={setHours} value={hours} onClick={() => { setSect3("flex") }}>
+                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Matin">
                                                         Matin(de 09h30 -- 12h)
                                                     </Radio>
                                                         <br />
-                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(13h-16h)">{/** mr={2} */}
+                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(13h-16h)">
                                                         Apres-Midi (de 13h -- 16h)
                                                     </Radio>
                                                         <br />
-                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(16h-20h)">{/** mr={2} */}
+                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(16h-20h)">
                                                         Soir (de 16h -- 20h)
                                                     </Radio>
                                                         <br />
-                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(20h-00h)">{/** mr={2} */}
+                                                    <Radio className="w-4 h-4 text-slate-600 bg-gray-100 border-gray-300 focus:ring-slate-500 dark:focus:ring-slate-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-cyan-800 dark:border-cyan-800" value="Soir(20h-00h)">
                                                         Nuit (de 20h -- 00h)
                                                     </Radio>
                                                 </RadioGroup>
                                             )}
                                         </Box>
                                         </Box>
-                                        <Box mb={10} className="min-w-[100%] flex flex-col justify-center items-center p-4 gap-4">{/**bg-orange-500  */}
-                                            {/* <div className="bg-teal-800 rounded-md p-8 flex flex-col justify-center items-center gap-4 text-white">
-                                                <Text className="text-2xl font-bold mb-4 max-[780px]:text-center max-[780px]:mb-1">
-                                                    {" "}
-                                                    Adresse de livraison
-                                                </Text>
-                                                <Box display={sect3}>
-                                                    <RadioGroup className="flex justify-between items-center max-[780px]:flex-col max-[780px]:gap-2 max-[780px]:items-start" onChange={setWay} value={way} onClick={() => { setSect4("grid") }}>
-                                                        <Radio mr={5} value="me"  onClick={() => {setLieu(secureLocalStorage.getItem("addresse")), setNumero(secureLocalStorage.getItem("number")), setNom(secureLocalStorage.getItem("name"))}}>
-                                                            Utiliser mon Adresse
-                                                        </Radio>
-                                                        <Radio  ml={5} value="other" onClick={() => { setLieu(""), setNumero(""), setNom("");}}>
-                                                            Utiliser une autre adresse
-                                                        </Radio>
-                                                    </RadioGroup>
-                                                </Box>  
-                                            </div>*/}
+                                        <Box mb={10} className="min-w-[100%] flex flex-col justify-center items-center p-4 gap-4">
+                                            ici
                                             
                                             {
                                                 way == "other" ?
                                                 <>
-                                                    <Box className="min-w-[80%] flex flex-col gap-2 mt-6 bg-white rounded-md shadow-md shadow-black p-12">{/*width={"300px"}*/}
+                                                    <Box className="min-w-[80%] flex flex-col gap-2 mt-6 bg-white rounded-md shadow-md shadow-black p-12">
                                                         <FormControl className="flex flex-col justify-start items-center w-full">
                                                             <FormLabel className="w-full text-black"><FontAwesomeIcon icon={faUser}/> Nom :  </FormLabel>
                                                             <Input placeholder="Elloh" className="min-w-[34rem] -ml-1 mb-2 w-96" onChange={(e) => setNom(e.target.value) }/>
@@ -631,7 +622,7 @@ export default function Carte() {
                                                 <></>
                                             }
                                         </Box>
-                                        <Box className="p-8">{  /*display={sect4} mb={20}*/}
+                                        <Box className="p-8">
                                             {
                                                 moyen == "Paypal" ? <Box width={"300px"}> <PayPalButtons
                                                 createOrder={(data, actions) => {
@@ -675,8 +666,8 @@ export default function Carte() {
                             </DrawerBody>
                             </div>
                         </DrawerContent>
-                    </Drawer>
-                    </div>
+                    </Drawer> */}
+                </div> : null}
                 {/* <FooterR /> */}
             </>
         )
@@ -694,3 +685,19 @@ export default function Carte() {
     }
     
 }
+{/* <div className="bg-teal-800 rounded-md p-8 flex flex-col justify-center items-center gap-4 text-white">
+        <Text className="text-2xl font-bold mb-4 max-[780px]:text-center max-[780px]:mb-1">
+            {" "}
+            Adresse de livraison
+        </Text>
+        <Box display={sect3}>
+            <RadioGroup className="flex justify-between items-center max-[780px]:flex-col max-[780px]:gap-2 max-[780px]:items-start" onChange={setWay} value={way} onClick={() => { setSect4("grid") }}>
+                <Radio mr={5} value="me"  onClick={() => {setLieu(secureLocalStorage.getItem("addresse")), setNumero(secureLocalStorage.getItem("number")), setNom(secureLocalStorage.getItem("name"))}}>
+                    Utiliser mon Adresse
+                </Radio>
+                <Radio  ml={5} value="other" onClick={() => { setLieu(""), setNumero(""), setNom("");}}>
+                    Utiliser une autre adresse
+                </Radio>
+            </RadioGroup>
+        </Box>  
+    </div>*/}
